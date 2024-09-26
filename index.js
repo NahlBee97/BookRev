@@ -27,16 +27,19 @@ let books = [
   { id: 2, olid: "", title: "Rich Dad Poor Dad", coverurl: "", author: "Robert Kyosaki", daterelease: "2017-06-16", review: "yyy", rating: 9 }
 ];
 
-
 // Route to render the main page
 app.get("/", async (req, res) => {
   var result;
-  if (req.query.sort == "title") {
-    result = await db.query("SELECT * FROM books ORDER BY title;");
-  } else if (req.query.sort == "date") {
-    result = await db.query("SELECT * FROM books ORDER BY daterelease;");
-  } else {
-    result = await db.query("SELECT * FROM books ORDER BY id;");
+  switch (req.query.sort) {
+    case "title":
+      result = await db.query("SELECT * FROM books ORDER BY title;");
+      break;
+    case "date":
+      result = await db.query("SELECT * FROM books ORDER BY daterelease;");
+      break;
+    default:
+      result = await db.query("SELECT * FROM books ORDER BY id;");
+      break;
   }
   books = result.rows;
   try {
