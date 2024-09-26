@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookRev</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+</head>
+
+<body>
+  <div class="container">
+    <h1>My Book Review</h1>
+    <div class="btn-container">
+      <a id="newPostBtn" href="/new">New Review</a>
+      <form action="/">
+        <label for="sort">Sort by:</label>
+        <select name="sort" id="sort">
+          <option value="default">...</option>
+          <option value="title">Title</option>
+          <option value="date">Date</option>
+        </select>
+        <input class="sort-btn" type="submit" value="Sort" />
+      </form>
+    </div>
+    <ul id="postsList">
+      <% books.forEach(book => { %>
+        <li>
+          <img src=<%= book.coverurl %> alt="book cover">
+          <h2>
+            <%=book.title%>
+          </h2>
+          <small>
+            Release Date: <%=book.daterelease %>
+          </small>
+          <p>
+            <%=book.review%>
+          </p>
+          <small>By: <%=book.author%> </small>
+          <a class="edit" href="/edit/<%= book.id %>">Edit</a>
+          <a class="delete" href="/posts/delete/<%= book.id %>">Delete</a>
+        </li>
+        <% }); %>
+    </ul>
+  </div>
+
+</body>
+
+</html>
